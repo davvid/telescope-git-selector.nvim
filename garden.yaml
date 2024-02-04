@@ -1,0 +1,16 @@
+# Use "cargo install garden-tools" to install garden (https://gitlab.com/garden-rs/garden).
+# Usage:
+#   garden check
+commands:
+  check: luacheck lua/git_selector lua/telescope
+
+trees:
+  telescope-git-selector.nvim:
+    path: ${GARDEN_CONFIG_DIR}
+    url: git@gitlab.com:davvid/telescope-git-selector.nvim
+    gitconfig:
+      remote.publish.pushurl:
+        - git@gitlab.com:davvid/telescope-git-selector.nvim
+        - git@github.com:davvid/telescope-git-selector.nvim
+    remotes:
+      github: git@github.com:davvid/telescope-git-selector.nvim
