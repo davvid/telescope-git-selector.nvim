@@ -58,35 +58,58 @@ local get_git_selector_opts = function(opts, prompt_title)
     return opts
 end
 
---- Build the find command.
+--- Build an "fd/fdfind" command for finding Git worktrees.
+local get_fdfind_command = function(fdfind, opts)
+    local fdfind_cmd =  fdfind
+    if opts.depth > 0 then
+        fdfind_cmd = fdfind_cmd .. ' --max-depth=' .. (opts.depth + 1)
+    end
+    fdfind_cmd = (
+        fdfind_cmd
+        .. ' --color=never'
+        .. ' --case-sensitive'
+        .. ' --hidden'
+        .. ' --no-ignore'
+    )
+    --  Append opts.args to fdfind_args
+    for _, path in ipairs(opts.search) do
+        fdfind_cmd = fdfind_cmd
+            .. (' --search-path %q'):format(vim.fn.expand(path))
+    end
+    fdfind_cmd = fdfind_cmd .. ' "^\\.git$" | xargs -P 4 -n 1 dirname 2>/dev/null'
+    return { 'sh', '-c', fdfind_cmd }
+end
+
+--- Build a "find" command for finding Git worktrees.
 local get_find_command = function(opts)
+    local find_cmd = 'find'
+    if opts.follow then
+        find_cmd = find_cmd .. ' -L'
+    end
+    for _, path in ipairs(opts.search) do
+        find_cmd = find_cmd .. (' %q'):format(vim.fn.expand(path))
+    end
+    if opts.depth > 0 then
+        find_cmd = find_cmd .. ' -maxdepth ' .. (opts.depth + 1)
+    end
+    find_cmd = find_cmd .. ' -name .git -printf "%h\\n" 2>/dev/null'
+    return { 'sh', '-c', find_cmd }
+end
+
+--- Build the find command.
+local get_finder_command = function(opts)
     if opts.find_command then
         if type(opts.find_command) == 'function' then
             return opts.find_command(opts)
         end
         return opts.find_command
     end
-
-    if vim.fn.executable('find') == 1 and vim.fn.has('win32') == 0 then
-        local find_cmd = 'find'
-        if opts.follow then
-            find_cmd = find_cmd .. ' -L'
-        end
-        for _, path in ipairs(opts.search) do
-            find_cmd = find_cmd .. (' %q'):format(vim.fn.expand(path))
-        end
-        if opts.depth > 0 then
-            find_cmd = find_cmd .. ' -maxdepth ' .. (opts.depth + 1)
-        end
-        find_cmd = find_cmd .. ' -name .git | xargs -n 1 dirname 2>/dev/null'
-        return { 'sh', '-c', find_cmd }
-    end
-
-    local fdfind
     if vim.fn.executable('fdfind') == 1 then
-        fdfind =  'fdfind'
+        return get_fdfind_command('fdfind', opts)
     elseif vim.fn.executable('fd') == 1 then
-        fdfind = 'fd'
+        return get_fdfind_command('fd', opts)
+    elseif vim.fn.executable('find') == 1 and vim.fn.has('win32') == 0 then
+        return get_find_command(opts)
     else
         vim.notify(
             'git-selector: "find", "fdfind" and "fd"  could not be found. '
@@ -95,31 +118,6 @@ local get_find_command = function(opts)
         )
         return nil
     end
-
-    local fdfind_cmd =  fdfind
-    if opts.follow then
-        fdfind_cmd = fdfind_cmd .. ' --follow'
-    end
-    if opts.depth > 0 then
-        fdfind_cmd = fdfind_cmd .. ' --max-depth=' .. (opts.depth + 1)
-    end
-    fdfind_cmd = (
-        fdfind_cmd
-        .. ' --color=never'
-        .. ' --case-sensitive'
-        .. ' --follow'
-        .. ' --hidden'
-        .. ' --no-ignore'
-        .. ' --absolute-path'
-        .. " '^\\.git$'"
-    )
-    --  Append opts.args to fdfind_args
-    for _, path in ipairs(opts.search) do
-        fdfind_cmd = fdfind_cmd .. (' %q'):format(vim.fn.expand(path))
-    end
-    fdfind_cmd = fdfind_cmd .. ' | xargs -n 1 dirname 2>/dev/null'
-
-    return { 'sh', '-c', fdfind_cmd }
 end
 
 --  Return the previewer to use
@@ -169,7 +167,7 @@ end
 
 -- Select a Git worktree and run a function on the selected path.
 git_selector.selector = function(fn, opts, extra_opts)
-    local cmd = get_find_command(opts)
+    local cmd = get_finder_command(opts)
     if cmd == nil then
         return
     end
