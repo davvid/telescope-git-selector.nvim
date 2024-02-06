@@ -87,12 +87,20 @@ end)
 
 ## Configuration
 
-You can configure `git_selector` using either Telescope or a direct `setup()` call.
+You can configure `git_selector` using either Telescope **or** a direct `setup()` call.
+
+If using telescope, it is recommend that you set `dynamic_preview_title = true`
+so that the preview window title is updated alongside the current selection.
 
 ```lua
 -- Telescope
-require('telescope').setup {
+require('telescope').setup({
+    -- Telescope core configuration
+    defaults = {
+        dynamic_preview_title = true,  -- Enable dynamic preview titles
+    },
     extensions = {
+        -- Git Selector configuration
         git_selector = {
             depth = 2,          -- Set to -1 to search without limit.
             follow = true,      -- Set to false to disable following symlinks.
@@ -106,9 +114,9 @@ require('telescope').setup {
             }
         }
     }
-}
+})
 -- Direct configuration
-require('git_selector').setup {
+require('git_selector').setup({
     depth = 2,          -- Set to -1 to search without limit.
     follow = true,      -- Set to false to disable following symlinks.
     search = {          -- Set to a list or string to specify the locations to search.
@@ -119,7 +127,7 @@ require('git_selector').setup {
         grep = {},      -- Defaults for git_grep.grep().
         live_grep = {}, -- Defaults for git_grep.live_grep().
     }
-}
+})
 ```
 
 The values shown above are the default values. You do not need to specify the
@@ -127,7 +135,7 @@ The values shown above are the default values. You do not need to specify the
 `git_selector.setup()` if the defaults work fine for you as-is.
 
 You can also pass a `{ depth = ..., search = ... }` table as the first argument
-directly to the extension functions to set these values at specific call sites.
+directly to `git_selector` functions to set these values at specific call sites.
 
 As demonstrated in the `:Telescope git_selector` examples above, the `search`
 and `depth` fields can be passed to the
