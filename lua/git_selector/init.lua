@@ -177,6 +177,7 @@ git_selector.selector = function(fn, opts, extra_opts)
             sorter = conf.file_sorter(opts),
             previewer = get_previewer(opts),
             prompt_title = opts.prompt_title,
+            results_title = 'Worktrees',
             entry_maker = opts.entry_maker,
             attach_mappings = function(_, map)
                 map('i', '<c-space>', actions.to_fuzzy_refine)
