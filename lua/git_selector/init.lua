@@ -7,6 +7,7 @@ local actions_state = require('telescope.actions.state')
 local conf = require('telescope.config').values
 local finders = require('telescope.finders')
 local pickers = require('telescope.pickers')
+local previewers = require('telescope.previewers')
 local utils = require('telescope.utils')
 
 --- Initialize global options.
@@ -123,7 +124,20 @@ end
 --  Return the previewer to use
 local get_previewer = function(opts)
     if opts.show_preview then
-        return conf.file_previewer(opts)
+        return previewers.new_buffer_previewer({
+            title = 'Preview',
+            dyn_title = function(_, entry)
+                return entry.value
+            end,
+            define_preview = function(self, entry)
+                conf.buffer_previewer_maker(entry.value, self.state.bufnr, {
+                    bufname = self.state.bufname,
+                    winid = self.state.winid,
+                    preview = opts.preview,
+                    file_encoding = opts.file_encoding,
+                })
+            end
+        })
     else
         return nil
     end
