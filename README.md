@@ -27,8 +27,8 @@ You can install this plugin using your favorite vim package manager, eg.
 **lazy**:
 ```lua
 {
-    "https://gitlab.com/davvid/telescope-git-selector.nvim"
-    dependencies = { "https://gitlab.com/davvid/telescope-git-grep.nvim" }
+    'davvid/telescope-git-selector.nvim'
+    dependencies = { 'davvid/telescope-git-grep.nvim' }
 }
 ```
 
@@ -170,3 +170,8 @@ The [Garden file](garden.yaml) can be used to run lint checks using
 # Run lint checks using "luacheck"
 garden check
 ```
+
+The [github repository](https://github.com/davvid/telescope-git-selector.nvim)
+is a mirror of the main
+[repository on gitlab](https://gitlab.com/davvid/telescope-git-selector.nvim)
+where you can file issues and submit merge requests.
