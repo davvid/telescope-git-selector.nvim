@@ -11,22 +11,23 @@ extension can be used as well to search within files in selected worktrees.
 
 ## Installation
 
-The following tools are optional and recommended in order to improve the
-the user experience when using `git_selector`:
+The following tools are used by this plugin and must be installed separately.
 
 * [fdfind](https://github.com/sharkdp/fd) is optional on Linux/UNIX platforms
 and required on Windows.
 
 `find` is used on Linux/UNIX platforms as a fallback when `fd` or `fdfind`
-cannot be found. `fdfind` is often faster than the `find` fallback.
+cannot be found.
 
-Debian users can `sudo apt install fdfind` to install `fdfind`.
+`fdfind` is faster than the `find` fallback and its installation is recommended.
+
+Debian users can `sudo apt install fdfind` to install `fdfind` a.k.a. `fd`.
 
 The `grep` and `live_grep` commands require
 [telescope-git-grep.nvim](https://gitlab.com/davvid/telescope-git-grep.nvim).
 
-You can install this plugin using your favorite vim package manager, eg.
-[vim-plug](https://github.com/junegunn/vim-plug),
+You can install these plugin using your favorite vim package manager, e.g.
+[vim-plug](https://github.com/junegunn/vim-plug) and
 [lazy](https://github.com/folke/lazy.nvim).
 
 **lazy**:
