@@ -14,8 +14,13 @@ extension can be used as well to search within files in selected worktrees.
 The following tools are optional and recommended in order to improve the
 the user experience when using `git_selector`:
 
-* [fdfind](https://github.com/sharkdp/fd) is used to find worktrees on Windows.
-`find` is used on non-Windows platforms (Linux, macOS, BSD, ...).
+* [fdfind](https://github.com/sharkdp/fd) is optional on Linux/UNIX platforms
+and required on Windows.
+
+`find` is used on Linux/UNIX platforms as a fallback when `fd` or `fdfind`
+cannot be found. `fdfind` is often faster than the `find` fallback.
+
+Debian users can `sudo apt install fdfind` to install `fdfind`.
 
 The `grep` and `live_grep` commands require
 [telescope-git-grep.nvim](https://gitlab.com/davvid/telescope-git-grep.nvim).
