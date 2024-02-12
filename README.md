@@ -21,7 +21,7 @@ cannot be found.
 
 `fdfind` is faster than the `find` fallback and its installation is recommended.
 
-Debian users can `sudo apt install fdfind` to install `fdfind` a.k.a. `fd`.
+Debian users can `sudo apt install fd-find` to install `fdfind` a.k.a. `fd`.
 
 The `grep` and `live_grep` commands require
 [telescope-git-grep.nvim](https://gitlab.com/davvid/telescope-git-grep.nvim).
