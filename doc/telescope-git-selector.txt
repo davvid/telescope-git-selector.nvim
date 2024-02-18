@@ -1,4 +1,4 @@
-*telescope-git-selector.txt*         For         Last change: 2024 February 17
+*telescope-git-selector.txt*   For NVIM v0.8.0   Last change: 2024 February 18
 
 ==============================================================================
 1. telescope-git-selector      *telescope-git-selector-telescope-git-selector*
@@ -181,10 +181,21 @@ DEVELOPMENT        *telescope-git-selector-telescope-git-selector-development*
 The Garden file <garden.yaml> can be used to run lint checks using Garden
 <https://gitlab.com/garden-rs/garden>.
 
->sh
+>bash
     # Run lint checks using "luacheck"
     garden check
 <
+
+The documentation is generated using panvimdoc
+<https://github.com/kdheepak/panvimdoc.git>.
+
+>bash
+    garden setup  # one-time setup
+    garden doc
+<
+
+Use `garden fmt` to apply code formatting using stylua
+<https://github.com/JohnnyMorganz/StyLua>.
 
 The github repository <https://github.com/davvid/telescope-git-selector.nvim>
 is a mirror of the main repository on gitlab
