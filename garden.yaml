@@ -1,5 +1,6 @@
 # Use "cargo install garden-tools" to install garden (https://gitlab.com/garden-rs/garden).
 # Usage:
+#   garden check
 #   garden fmt
 commands:
   check>:
