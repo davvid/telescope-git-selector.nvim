@@ -61,7 +61,7 @@ end
 
 --- Build an "fd/fdfind" command for finding Git worktrees.
 local get_fdfind_command = function(fdfind, opts)
-    local fdfind_cmd =  fdfind
+    local fdfind_cmd = fdfind
     if opts.depth > 0 then
         fdfind_cmd = fdfind_cmd .. ' --max-depth=' .. (opts.depth + 1)
     end
@@ -74,8 +74,7 @@ local get_fdfind_command = function(fdfind, opts)
     )
     --  Append opts.args to fdfind_args
     for _, path in ipairs(opts.search) do
-        fdfind_cmd = fdfind_cmd
-            .. (' --search-path %q'):format(vim.fn.expand(path))
+        fdfind_cmd = fdfind_cmd .. (' --search-path %q'):format(vim.fn.expand(path))
     end
     fdfind_cmd = fdfind_cmd .. ' "^\\.git$" | xargs -P 4 -n 1 dirname 2>/dev/null'
     return { 'sh', '-c', fdfind_cmd }
@@ -114,7 +113,7 @@ local get_finder_command = function(opts)
     else
         vim.notify(
             'git-selector: "find", "fdfind" and "fd"  could not be found. '
-            ..  'Install  fd / fdfind. (sudo apt install fd-find)',
+                .. 'Install  fd / fdfind. (sudo apt install fd-find)',
             vim.log.levels.ERROR
         )
         return nil
@@ -136,7 +135,7 @@ local get_previewer = function(opts)
                     preview = opts.preview,
                     file_encoding = opts.file_encoding,
                 })
-            end
+            end,
         })
     else
         return nil
@@ -148,8 +147,8 @@ git_selector.gen_from_git = function(opts)
     opts = opts or {}
     local disable_devicons = opts.disable_devicons
     local entry_maker = {
-        cwd = opts.cwd,  -- Paths are displayed relative to opts.cwd.
-        display = function(entry)  -- Transform the entry into a displayable value.
+        cwd = opts.cwd, -- Paths are displayed relative to opts.cwd.
+        display = function(entry) -- Transform the entry into a displayable value.
             local icon = '📁'
             local hl_group = 'DevIconFileFolder'
             local display = utils.transform_path(opts, entry.value)
@@ -158,7 +157,7 @@ git_selector.gen_from_git = function(opts)
             else
                 return icon .. ' ' .. display, { { { 0, #icon }, hl_group } }
             end
-        end
+        end,
     }
     -- Handle lookups so that "entry.path" calculates a path.
     local lookup_keys = {
@@ -185,8 +184,8 @@ git_selector.selector = function(fn, opts, extra_opts)
     if cmd == nil then
         return
     end
-    pickers.new(
-        opts, {
+    pickers
+        .new(opts, {
             finder = finders.new_oneshot_job(cmd, opts),
             sorter = conf.file_sorter(opts),
             previewer = get_previewer(opts),
@@ -214,9 +213,9 @@ git_selector.selector = function(fn, opts, extra_opts)
                     fn(inner_opts)
                 end)
                 return true
-            end
-        }
-    ):find()
+            end,
+        })
+        :find()
 end
 
 --- Find worktrees and search for files in the selected worktree.
