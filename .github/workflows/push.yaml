@@ -8,16 +8,26 @@ jobs:
     permissions:
       contents: write
     steps:
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.12.1
+      - uses: actions/checkout@v3
       - run: sudo add-apt-repository ppa:neovim-ppa/stable
       - run: sudo apt-get update
       - run: sudo apt-get install -y bash neovim pandoc
-      - run: rustup toolchain install stable --profile minimal --no-self-update
-      - run: cargo install garden-tools
-      - run: cargo install stylua
-      - uses: actions/checkout@v3
+      - run: date +%W >weekly
+      - name: Restore cache
+        id: cache
+        uses: actions/cache@v2
         with:
-          repository: ${{ github.event.pull_request.head.repo.full_name }}
-          ref: ${{ github.head_ref }}
+          path: ~/.cargo/bin
+          key: ${{ runner.os }}-cargo-${{ hashFiles('weekly') }}
+      - name: Install
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: |
+          rustup toolchain install stable --profile minimal --no-self-update
+          cargo install garden-tools
+          cargo install stylua
+      - run:  rm -f weekly
       - name: Generate docs
         uses: kdheepak/panvimdoc@main
         with:
