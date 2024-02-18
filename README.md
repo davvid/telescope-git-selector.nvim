@@ -172,10 +172,19 @@ used by this plugin. The key name corresponds to the name of the command.
 The [Garden file](garden.yaml) can be used to run lint checks using
 [Garden](https://gitlab.com/garden-rs/garden).
 
-```sh
+```bash
 # Run lint checks using "luacheck"
 garden check
 ```
+
+The documentation is generated using [panvimdoc](https://github.com/kdheepak/panvimdoc.git).
+
+```bash
+garden setup  # one-time setup
+garden doc
+```
+
+Use `garden fmt` to apply code formatting using [stylua](https://github.com/JohnnyMorganz/StyLua).
 
 The [github repository](https://github.com/davvid/telescope-git-selector.nvim)
 is a mirror of the main
