@@ -1,4 +1,4 @@
-# telescope-git-selector.nvim
+# telescope-git-selector
 
 *Telescope Git Selector* is a [Telescope](https://github.com/nvim-telescope/telescope.nvim)
 extension that searches for Git worktrees and opens files in the selected worktree.
