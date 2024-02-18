@@ -21,6 +21,7 @@ jobs:
       - name: Generate docs
         uses: kdheepak/panvimdoc@main
         with:
+          description: ' Search for Git worktree and open files or grep in them'
           vimdoc: telescope-git-selector
           pandoc: README.md
           toc: 'false'

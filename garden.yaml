@@ -27,6 +27,7 @@ trees:
       check/lua: luacheck lua/*
       doc: |
         panvimdoc.sh \
+          --description ' Search for Git worktree and open files or grep in them' \
           --input-file README.md \
           --project-name ${TREE_NAME} \
           --toc false
