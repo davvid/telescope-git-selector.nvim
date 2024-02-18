@@ -114,7 +114,7 @@ local get_finder_command = function(opts)
     else
         vim.notify(
             'git-selector: "find", "fdfind" and "fd"  could not be found. '
-            ..  'Install  fd / fdfind. (sudo apt install fdfind)',
+            ..  'Install  fd / fdfind. (sudo apt install fd-find)',
             vim.log.levels.ERROR
         )
         return nil
