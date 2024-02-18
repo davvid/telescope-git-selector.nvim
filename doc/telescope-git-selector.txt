@@ -1,4 +1,4 @@
-*telescope-git-selector.txt*   For NVIM v0.8.0   Last change: 2024 February 18
+*telescope-git-selector.txt* Search for Git worktree and open files or grep in them
 
 ==============================================================================
 1. telescope-git-selector      *telescope-git-selector-telescope-git-selector*
