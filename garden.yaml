@@ -23,7 +23,7 @@ trees:
       check>:
         - check/lua
         - check/fmt
-      check/fmt: garden fmt -- --check
+      check/fmt: garden -vv fmt -- --check
       check/lua: luacheck lua/*
       doc>:
         - doc/build
