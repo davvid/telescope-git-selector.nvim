@@ -31,7 +31,7 @@ jobs:
       - name: Generate docs
         uses: kdheepak/panvimdoc@main
         with:
-          description: ' Search for Git worktree and open files or grep in them'
+          description: 'Telescope plugin to search for Git worktrees'
           vimdoc: telescope-git-selector
           pandoc: README.md
           toc: 'false'

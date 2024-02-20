@@ -30,7 +30,7 @@ trees:
         - doc/post
       doc/build: |
         panvimdoc.sh \
-          --description ' Search for Git worktree and open files or grep in them' \
+          --description 'Telescope plugin to search for Git worktrees' \
           --input-file README.md \
           --project-name ${TREE_NAME} \
           --toc false

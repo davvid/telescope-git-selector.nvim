@@ -1,4 +1,4 @@
-*telescope-git-selector.txt* Search for Git worktree and open files or grep in them
+*telescope-git-selector.txt*      Telescope plugin to search for Git worktrees
 
 ==============================================================================
 1. telescope-git-selector      *telescope-git-selector-telescope-git-selector*
