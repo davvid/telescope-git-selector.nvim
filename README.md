@@ -113,11 +113,13 @@ require('telescope').setup({
             search = {          -- Set to a list or string to specify the locations to search.
                 '~'             -- Defaults to searching $HOME.
             },
+            -- Maximum number of results to display.
+            max_results = 10000,
             options = {         -- Default options passed to inner commands.
                 files = {},     -- Defaults for telescope.builtin.git_files().
                 grep = {},      -- Defaults for git_grep.grep().
                 live_grep = {}, -- Defaults for git_grep.live_grep().
-            }
+            },
         }
     }
 })
@@ -128,6 +130,7 @@ require('git_selector').setup({
     search = {          -- Set to a list or string to specify the locations to search.
         '~'             -- Defaults to searching $HOME.
     },
+    max_results = 10000, -- Maximum number of results to display.
     options = {         -- Default options passed to inner commands.
         files = {},     -- Defaults for telescope.builtin.git_files().
         grep = {},      -- Defaults for git_grep.grep().

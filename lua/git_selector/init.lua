@@ -54,6 +54,10 @@ local get_git_selector_opts = function(opts, prompt_title)
     else
         opts.cwd = vim.fn.expand(opts.cwd)
     end
+    if opts.max_results == nil then
+        opts.max_results = 10000
+    end
+    opts.temp__scrolling_limit = opts.max_results
     opts.entry_maker = vim.F.if_nil(opts.entry_maker, git_selector.gen_from_git(opts))
 
     return opts
